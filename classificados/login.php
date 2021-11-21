@@ -42,7 +42,7 @@
         </div>
 
 
-        <input type="submit" value="Salvar" class="btn btn-default">
+        <input type="submit" value="Entrar" class="btn btn-default">
     </form>
 
 </div>
