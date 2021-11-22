@@ -128,18 +128,18 @@ class Anuncios {
 		return $array;
 	}
 
-	public function addAnuncio($titulo, $categoria, $valor, $descricao, $estado) {
-		global $pdo;
+	public function addAnuncio($titulo,  $categoria, $valor, $descricao, $estado) {
+        global $pdo;
+        $sql = $pdo->prepare("INSERT INTO anuncios (titulo, id_categoria, id_usuario, descricao, valor, estado) VALUES (:titulo, :id_categoria, :id_usuario, :descricao, :valor, :estado)");
+        $sql->bindValue(':titulo', $titulo);
+        $sql->bindValue(':id_categoria', $categoria);
+        $sql->bindValue(':id_usuario', $_SESSION['cLogin']);
+        $sql->bindValue(':descricao', $descricao);
+        $sql->bindValue(':valor', $valor);
+        $sql->bindValue(':estado', $estado);
+        $sql->execute();
 
-		$sql = $pdo->prepare("INSERT INTO anuncios SET titulo = :titulo, id_categoria = :id_categoria, id_usuario = :id_usuario, descricao = :descricao, valor = :valor, estado = :estado");
-		$sql->bindValue(":titulo", $titulo);
-		$sql->bindValue(":id_categoria", $categoria);
-		$sql->bindValue(":id_usuario", $_SESSION['cLogin']);
-		$sql->bindValue(":descricao", $descricao);
-		$sql->bindValue(":valor", $valor);
-		$sql->bindValue(":estado", $estado);
-		$sql->execute();
-	}
+    }
 
 	public function editAnuncio($titulo, $categoria, $valor, $descricao, $estado, $fotos, $id) {
 		global $pdo;

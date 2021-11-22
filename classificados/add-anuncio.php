@@ -9,6 +9,22 @@ if(empty($_SESSION['cLogin'])) {
     <?php
     exit;
 }
+require 'classes/anuncios.class.php';
+$a = new Anuncios();
+if(isset($_POST['titulo']) && !empty($_POST['titulo'])) {
+    $titulo = addslashes($_POST['titulo']);
+    $categoria = addslashes($_POST['categoria']);
+    $valor = addslashes($_POST['valor']);
+    $descricao = addslashes($_POST['descricao']);
+    $estado = addslashes($_POST['estado']);
+
+    $a->addAnuncio($titulo, $categoria, $valor, $descricao, $estado);
+    ?>
+        <div class="alert alert-success">
+            <p>Produto adicionado com sucesso!</p>
+        </div>
+    <?php
+}
 ?>
 
 <div class="container">
@@ -18,10 +34,16 @@ if(empty($_SESSION['cLogin'])) {
         <div class="form-group">
             <label for="categoria">Categoria:</label>
             <select name="categoria" id="categoria" class="form-control">
-                <option value="categoria">Categoria 1</option>
-                <option value="categoria">Categoria 2</option>
-                <option value="categoria">Categoria 3</option>
-                <option value="categoria">Categoria 4</option>
+                <?php
+                    require 'classes/categorias.class.php';
+                    $c = new Categorias();
+                    $cats = $c->getLista();
+                    foreach($cats as $cat):
+                ?>
+                    <option></option>
+                    <option value="<?php echo $cat['id']; ?>"><?php echo $cat['nome'];  ?></option>
+
+                <?php endforeach; ?>
             </select>
         </div>    
         <div class="form-group">
@@ -35,7 +57,7 @@ if(empty($_SESSION['cLogin'])) {
         </div>
 
         <div class="form-group">
-            <label for="descrica">Descrição:</label>
+            <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" class="form-control" cols="30" rows="10"></textarea>
         </div>
 
@@ -46,6 +68,10 @@ if(empty($_SESSION['cLogin'])) {
                 <option value="1">Bom</option>
                 <option value="2">Ótimo</option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="ADICIONAR" class="btn btn-success">
         </div>
 
     </form>
