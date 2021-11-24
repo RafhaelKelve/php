@@ -93,7 +93,7 @@ $categorias = $c->getLista();
 						</td>
 						<td>
 							<a href="produto.php?id=<?php echo $anuncio['id']; ?>"><?php echo $anuncio['titulo']; ?></a><br/>
-							<?php echo $anuncio['categoria']; ?>
+							<?php $anuncio['categoria']; ?>
 						</td>
 						<td>R$ <?php echo number_format($anuncio['valor'], 2); ?></td>
 					</tr>
@@ -103,7 +103,7 @@ $categorias = $c->getLista();
 
 			<ul class="pagination">
 				<?php for($q=1;$q<=$total_paginas;$q++): ?>
-				<li class="<?php echo ($p==$q)?'active':''; ?>"><a href="index.php?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+				<li class="<?php echo ($p==$q)?'active':''; ?>"><a href="index.php?<?php $w = $_GET; $w['p'] = $q; echo http_build_query($w); ?>"><?php echo $q; ?></a></li>
 				<?php endfor; ?>
 			</ul>
 		</div>
